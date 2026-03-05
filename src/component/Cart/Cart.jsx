@@ -54,6 +54,7 @@ export default function Cart() {
 
   return (
     <>
+    <div className="pt-24"></div>
       <Toaster />
       {cartData?.products?.length > 0 ? <div className=' w-10/12 mx-auto my-5'>
         <div className='bg-gray-200 p-4'>

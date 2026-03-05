@@ -6,6 +6,7 @@ export default function Brands() {
 
   return (
     <>
+    <div className="pt-24"></div>
       {isLoading ? (
         <div className='bg-slate-300 flex justify-center items-center h-screen'>
           <span className="loader"></span>

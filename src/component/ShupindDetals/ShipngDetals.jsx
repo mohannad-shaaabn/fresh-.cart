@@ -43,7 +43,7 @@ export default function ShipngDetals() {
   }
 
   return (
-    <div className='w-9/12 m-auto'>
+    <div className='w-9/12 m-auto py-24'>
       <h1>Shipping Form</h1>
       <form onSubmit={formik.handleSubmit} className="mt-2 w-full mx-auto">
         <div className="mb-5">

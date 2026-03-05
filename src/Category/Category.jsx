@@ -4,6 +4,7 @@ import useApi from '../component/useApi/useApi'
 export default function Category() {
   let { isLoading, data } = useApi('categories')
   return <>
+  <div className="pt-24"></div>
     {isLoading ? <div className='bg-slate-300 flex justify-center items-center h-screen'></div> : 
     <div className='flex flex-wrap justify-center'>
         {data?.data?.data?.map((category) => (

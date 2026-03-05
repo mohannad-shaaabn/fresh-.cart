@@ -7,37 +7,52 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 export default function MainSlider() {
-    var settings = {
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        arrows: false, 
-        infinite: true,
-    };
+  const settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: false,
+  };
 
+  return (
+    <div className="flex flex-col md:flex-row gap-3">
+      
+      {/* Main Slider */}
+      <div className="w-full md:w-9/12">
+        <Slider {...settings}>
+          <div>
+            <img
+              src={img1}
+              className="w-full h-56 md:h-96 object-cover"
+              alt="Slide 1"
+            />
+          </div>
+          <div>
+            <img
+              src={img2}
+              className="w-full h-56 md:h-96 object-cover"
+              alt="Slide 2"
+            />
+          </div>
+          <div>
+            <img
+              src={img3}
+              className="w-full h-56 md:h-96 object-cover"
+              alt="Slide 3"
+            />
+          </div>
+        </Slider>
+      </div>
 
-    return (
-        <div className="flex">
-            <div className="w-9/12">
-                <Slider {...settings}>
-                    <div>
-                        <img src={img1} className="w-full h-96 object-cover" alt="Slide 1" />
-                    </div>
-                    <div>
-                        <img src={img2} className="w-full h-96 object-cover" alt="Slide 2" />
-                    </div>
-                    <div>
-                        <img src={img3} className="w-full  h-96 object-cover" alt="Slide 3" />
-                    </div>
-                </Slider>
-            </div>
-            <div className="w-3/12">
-                <div><img src={img3} className="w-full h-48" alt="" /></div>
-                <div><img src={img1} className="w-full h-48" alt="" /></div>
-            </div>
-        </div>
-    );
+      {/* Side Images - Desktop Only */}
+      <div className="hidden md:block md:w-3/12 space-y-3">
+        <img src={img3} className="w-full h-48 object-cover" alt="" />
+        <img src={img1} className="w-full h-48 object-cover" alt="" />
+      </div>
+
+    </div>
+  );
 }

@@ -33,31 +33,69 @@ export default function ProductDetails() {
             .catch((err) => { toast.error(err.response.data.message) })
     }
     return <>
-        <Toaster />
-        {isLoading ? <div className='bg-slate-300 flex justify-center items-center h-screen'><span class="loader"></span></div> : <div className='flex justify-center items-center h-screen my-8'>
-            <div className='flex w-10/12  justify-center items-center'>
-                <div className='w-4/12'>
-                    <img className='pe-4 ' src={product?.imageCover} id='myImage' alt="" />
-                    <div className='flex mt-2'>
-                        {product?.images.map((image, i) => {
-                            return (
-                                <div key={i}>
-                                    <img src={image} onClick={changeImage} alt="" />
-                                </div>
-                            )
-                        })}
-                    </div>
+    <Toaster />
 
-                </div>
-                <div className='w-8/12'>
-                    <h2>{product?.title}</h2>
-                    <p className='text-slate-500 mt-3 text-[14px]' >{product?.description}</p>
-                    <span className='block text-[16px] text-active mt-3'>{product?.category.name}</span>
-                    <span className='block text-[16px]'>{product?.price}EGP</span>
-                    <button onClick={()=>addCart(id)} className='btn'><i className="fa-solid fa-plus text-white me-2"></i>add to cart</button>
-                </div>
+    {isLoading ? (
+      <div className='bg-slate-300 flex justify-center items-center min-h-screen'>
+        <span className="loader"></span>
+      </div>
+    ) : (
+      <div className='min-h-screen flex justify-center items-center py-10 px-4'>
+        <div className='flex flex-col md:flex-row w-full md:w-10/12 gap-8 bg-white p-6 rounded-lg shadow-sm'>
+
+          {/* الصور */}
+          <div className='w-full md:w-5/12'>
+            <img
+              className='w-full rounded-lg'
+              src={product?.imageCover}
+              id='myImage'
+              alt=""
+            />
+
+            <div className='flex gap-3 mt-4 overflow-x-auto'>
+              {product?.images.map((image, i) => (
+                <img
+                  key={i}
+                  src={image}
+                  onClick={changeImage}
+                  className='w-20 h-20 object-cover cursor-pointer border rounded-md hover:border-green-500'
+                  alt=""
+                />
+              ))}
             </div>
-        </div>}
+          </div>
 
-    </>
+          {/* التفاصيل */}
+          <div className='w-full md:w-7/12 flex flex-col justify-center'>
+
+            <h2 className='text-2xl font-semibold'>
+              {product?.title}
+            </h2>
+
+            <p className='text-slate-500 mt-4 text-sm leading-relaxed'>
+              {product?.description}
+            </p>
+
+            <span className='mt-4 text-active font-medium'>
+              {product?.category.name}
+            </span>
+
+            <span className='mt-2 text-xl font-bold'>
+              {product?.price} EGP
+            </span>
+
+            <button
+              onClick={() => addCart(id)}
+              className='btn mt-6 w-full md:w-fit px-6 py-3'
+            >
+              <i className="fa-solid fa-plus text-white me-2"></i>
+              Add to Cart
+            </button>
+
+          </div>
+
+        </div>
+      </div>
+    )}
+  </>
 }
