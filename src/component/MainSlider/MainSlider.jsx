@@ -7,37 +7,40 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 export default function MainSlider() {
-    var settings = {
-        infinite: true,
+    const settings = {
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 3000,
-        arrows: false, 
+        arrows: false,
         infinite: true,
     };
 
 
     return (
-        <div className="flex">
-            <div className="w-9/12">
+        <section className="grid grid-cols-1 gap-3 lg:grid-cols-12">
+            <div className="lg:col-span-9 overflow-hidden rounded-2xl">
                 <Slider {...settings}>
                     <div>
-                        <img src={img1} className="w-full h-96 object-cover" alt="Slide 1" />
+                        <img src={img1} className="w-full aspect-[16/9] max-h-[520px] object-cover object-center" alt="Slide 1" />
                     </div>
                     <div>
-                        <img src={img2} className="w-full h-96 object-cover" alt="Slide 2" />
+                        <img src={img2} className="w-full aspect-[16/9] max-h-[520px] object-cover object-center" alt="Slide 2" />
                     </div>
                     <div>
-                        <img src={img3} className="w-full  h-96 object-cover" alt="Slide 3" />
+                        <img src={img3} className="w-full aspect-[16/9] max-h-[520px] object-cover object-center" alt="Slide 3" />
                     </div>
                 </Slider>
             </div>
-            <div className="w-3/12">
-                <div><img src={img3} className="w-full h-48" alt="" /></div>
-                <div><img src={img1} className="w-full h-48" alt="" /></div>
+            <div className="lg:col-span-3 grid grid-cols-2 gap-3 lg:grid-cols-1">
+                <div className="overflow-hidden rounded-2xl">
+                    <img src={img3} className="w-full h-full min-h-40 sm:min-h-44 lg:min-h-52 object-cover object-center" alt="Promo 1" />
+                </div>
+                <div className="overflow-hidden rounded-2xl">
+                    <img src={img1} className="w-full h-full min-h-40 sm:min-h-44 lg:min-h-52 object-cover object-center" alt="Promo 2" />
+                </div>
             </div>
-        </div>
+        </section>
     );
 }

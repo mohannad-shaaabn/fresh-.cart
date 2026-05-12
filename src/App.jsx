@@ -53,6 +53,6 @@ export default function App() {
       </AuthContextProvider>
     </QueryClientProvider>
 
-    <Offline><div className='bg-red-300 fixed bottom-6 left-6 rounded p-3'><i class="fa-solid fa-circle-exclamation"></i> You're offline right now. Check your connection.</div></Offline>
+    <Offline><div className='bg-red-300 fixed bottom-6 left-6 rounded p-3 z-50 max-w-[90vw]'><i className="fa-solid fa-circle-exclamation"></i> You're offline right now. Check your connection.</div></Offline>
   </>
 }

@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { useParams } from 'react-router-dom'
-import Slider from 'react-slick';
 import { CartContext } from '../../Context/CartContextProvider';
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -25,7 +24,6 @@ export default function ProductDetails() {
     function addCart(id) {
         addUserCart(id)
             .then((req) => {
-                console.log(req);
                 setNumsCartItem(req.data.numOfCartItems)
                 toast.success(req.data.message)
 
@@ -34,27 +32,27 @@ export default function ProductDetails() {
     }
     return <>
         <Toaster />
-        {isLoading ? <div className='bg-slate-300 flex justify-center items-center h-screen'><span class="loader"></span></div> : <div className='flex justify-center items-center h-screen my-8'>
-            <div className='flex w-10/12  justify-center items-center'>
-                <div className='w-4/12'>
-                    <img className='pe-4 ' src={product?.imageCover} id='myImage' alt="" />
-                    <div className='flex mt-2'>
+        {isLoading ? <div className='bg-slate-300 flex justify-center items-center h-screen'><span className="loader"></span></div> : <div className='flex justify-center items-center min-h-screen my-8'>
+            <div className='flex flex-col lg:flex-row w-11/12 lg:w-10/12 justify-center items-start gap-6'>
+                <div className='w-full lg:w-4/12'>
+                    <img className='w-full aspect-square rounded-2xl object-cover object-center' src={product?.imageCover} id='myImage' alt={product?.title} />
+                    <div className='flex mt-2 gap-2 overflow-x-auto'>
                         {product?.images.map((image, i) => {
                             return (
-                                <div key={i}>
-                                    <img src={image} onClick={changeImage} alt="" />
+                                <div key={i} className='shrink-0 w-20 sm:w-24 cursor-pointer'>
+                                    <img src={image} onClick={changeImage} alt={product?.title} className='w-full aspect-square rounded-lg object-cover object-center' />
                                 </div>
                             )
                         })}
                     </div>
 
                 </div>
-                <div className='w-8/12'>
-                    <h2>{product?.title}</h2>
-                    <p className='text-slate-500 mt-3 text-[14px]' >{product?.description}</p>
+                <div className='w-full lg:w-8/12'>
+                    <h2 className='text-2xl font-semibold text-slate-800'>{product?.title}</h2>
+                    <p className='text-slate-500 mt-3 text-sm sm:text-base' >{product?.description}</p>
                     <span className='block text-[16px] text-active mt-3'>{product?.category.name}</span>
-                    <span className='block text-[16px]'>{product?.price}EGP</span>
-                    <button onClick={()=>addCart(id)} className='btn'><i className="fa-solid fa-plus text-white me-2"></i>add to cart</button>
+                    <span className='mt-2 block text-lg font-semibold'>{product?.price} EGP</span>
+                    <button onClick={() => addCart(id)} className='btn max-w-xs'><i className="fa-solid fa-plus text-white me-2"></i>add to cart</button>
                 </div>
             </div>
         </div>}

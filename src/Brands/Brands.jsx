@@ -11,10 +11,10 @@ export default function Brands() {
           <span className="loader"></span>
         </div>
       ) : (
-        <div className="flex flex-wrap justify-center gap-4">
+        <div className="w-11/12 lg:w-10/12 mx-auto flex flex-wrap justify-center gap-4 my-6">
           {data?.data?.data?.map((brand) => (
-            <div key={brand._id} className="text-center w-1/5">
-              <img src={brand.image} alt={brand.name} className='h-64 object-cover w-full object-top' />
+            <div key={brand._id} className="text-center w-full sm:w-[47%] md:w-[31%] lg:w-[23%]">
+              <img src={brand.image} alt={brand.name} className='h-52 sm:h-60 md:h-64 object-cover w-full object-top rounded-md' />
               <h5 className='mt-2'>{brand.name}</h5>
             </div>
           ))}
