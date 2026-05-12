@@ -42,33 +42,36 @@ export default function Login() {
   }
 
   return (
-    <div className='w-9/12 m-auto'>
-      <h2 className='font-bold mt-4'>Login Now :</h2>
+    <section className='w-11/12 sm:w-10/12 lg:w-8/12 xl:w-7/12 mx-auto my-8'>
+      <div className='rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm'>
+        <h2 className='text-3xl font-semibold text-slate-800'>Welcome back</h2>
+        <p className='mt-2 text-sm text-slate-500'>Login to manage your orders and continue shopping.</p>
 
-      {errorMessage ? <div className="text-center w- p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-        {errorMessage}
-      </div> : ""}
+        {errorMessage ? <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700" role="alert">
+          {errorMessage}
+        </div> : ""}
 
-      <form onSubmit={LoginFrom.handleSubmit} className="w-full mt-2">
-        <div className="mb-5">
-          <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">email</label>
-          <input value={LoginFrom.values.email} onChange={LoginFrom.handleChange} onBlur={LoginFrom.handleBlur} type="email" name='email' id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
-          {LoginFrom.touched.email && LoginFrom.errors.email ? <p className='text-red-800'>{LoginFrom.errors.email}</p> : ""}
-        </div>
-        <div className="mb-5">
-          <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">password</label>
-          <input value={LoginFrom.values.password} onChange={LoginFrom.handleChange} onBlur={LoginFrom.handleBlur} type="password" name='password' id="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
-          {LoginFrom.touched.password && LoginFrom.errors.password ? <p className='text-red-800'>{LoginFrom.errors.password}</p> : ""}
-        </div>
+        <form onSubmit={LoginFrom.handleSubmit} className="mt-6 space-y-4">
+          <div>
+            <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-700">Email</label>
+            <input value={LoginFrom.values.email} onChange={LoginFrom.handleChange} onBlur={LoginFrom.handleBlur} type="email" name='email' id="email" className="block w-full rounded-xl border border-slate-300 bg-slate-50 p-3 text-sm text-slate-900 outline-none transition focus:border-active focus:ring-2 focus:ring-green-100" placeholder="name@example.com" required />
+            {LoginFrom.touched.email && LoginFrom.errors.email ? <p className='mt-1 text-sm text-red-600'>{LoginFrom.errors.email}</p> : ""}
+          </div>
+          <div>
+            <label htmlFor="password" className="mb-2 block text-sm font-medium text-slate-700">Password</label>
+            <input value={LoginFrom.values.password} onChange={LoginFrom.handleChange} onBlur={LoginFrom.handleBlur} type="password" name='password' id="password" className="block w-full rounded-xl border border-slate-300 bg-slate-50 p-3 text-sm text-slate-900 outline-none transition focus:border-active focus:ring-2 focus:ring-green-100" placeholder="Enter your password" required />
+            {LoginFrom.touched.password && LoginFrom.errors.password ? <p className='mt-1 text-sm text-red-600'>{LoginFrom.errors.password}</p> : ""}
+          </div>
 
+          <div className='flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between'>
+            <Link to="/forgetPassword" className='text-sm text-blue-600 underline hover:text-blue-800'>Forget Password?</Link>
+            <Link to="/regester" className='text-sm text-slate-600'>No account? <span className='text-active font-medium'>Create one</span></Link>
+          </div>
 
-        <Link to="/forgetPassword" className='hover:text-blue-800 text-blue-600 underline'>Forget Password ? </Link>
-        <br />
-        <button disabled={!(LoginFrom.isValid && LoginFrom.dirty)} type="submit" className="mt-2 text-white bg-active hover:bg-active focus:ring-4 focus:outline-none focus:ring-abg-active font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-active dark:hover:bg-active dark:focus:ring-abg-active disabled:bg-active disabled:bg-opacity-25">Login</button>
-      </form>
-
-
-    </div>
+          <button disabled={!(LoginFrom.isValid && LoginFrom.dirty)} type="submit" className="btn mt-1 disabled:cursor-not-allowed disabled:opacity-60">Login</button>
+        </form>
+      </div>
+    </section>
   )
 }
 
