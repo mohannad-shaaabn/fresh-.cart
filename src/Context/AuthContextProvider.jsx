@@ -1,15 +1,34 @@
 import { useEffect, useState } from 'react'
 import { createContext } from 'react'
 export const AuthContext = createContext();
+
+function getStoredToken() {
+    const storedToken = localStorage.getItem('token');
+    if (!storedToken || storedToken === 'null' || storedToken === 'undefined') {
+        return null;
+    }
+    return storedToken;
+}
+
 export default function AuthContextProvider({ children }) {
-    let [token, setToken] = useState(null)
+    const [token, setToken] = useState(() => getStoredToken())
+
     useEffect(() => {
-        let tokenStorage = localStorage.getItem('token');
-        if (tokenStorage) {
-            setToken(tokenStorage);
-        }
+        const syncToken = () => {
+            setToken(getStoredToken());
+        };
+
+        syncToken();
+        window.addEventListener('storage', syncToken);
+
+        return () => {
+            window.removeEventListener('storage', syncToken);
+        };
     }, []);
+
+    const isAuthenticated = Boolean(token);
+
     return (
-        <AuthContext.Provider value={{ token, setToken }}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{ token, setToken, isAuthenticated }}>{children}</AuthContext.Provider>
     )
 }
