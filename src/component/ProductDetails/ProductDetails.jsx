@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { useParams } from 'react-router-dom'
-import Slider from 'react-slick';
 import { CartContext } from '../../Context/CartContextProvider';
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -25,7 +24,6 @@ export default function ProductDetails() {
     function addCart(id) {
         addUserCart(id)
             .then((req) => {
-                console.log(req);
                 setNumsCartItem(req.data.numOfCartItems)
                 toast.success(req.data.message)
 
@@ -33,69 +31,31 @@ export default function ProductDetails() {
             .catch((err) => { toast.error(err.response.data.message) })
     }
     return <>
-    <Toaster />
+        <Toaster />
+        {isLoading ? <div className='bg-slate-300 flex justify-center items-center h-screen'><span className="loader"></span></div> : <div className='flex justify-center items-center min-h-screen my-8'>
+            <div className='flex flex-col lg:flex-row w-11/12 lg:w-10/12 justify-center items-start gap-6'>
+                <div className='w-full lg:w-4/12'>
+                    <img className='w-full aspect-square rounded-2xl object-cover object-center' src={product?.imageCover} id='myImage' alt={product?.title} />
+                    <div className='flex mt-2 gap-2 overflow-x-auto'>
+                        {product?.images.map((image, i) => {
+                            return (
+                                <div key={i} className='shrink-0 w-20 sm:w-24 cursor-pointer'>
+                                    <img src={image} onClick={changeImage} alt={product?.title} className='w-full aspect-square rounded-lg object-cover object-center' />
+                                </div>
+                            )
+                        })}
+                    </div>
 
-    {isLoading ? (
-      <div className='bg-slate-300 flex justify-center items-center min-h-screen'>
-        <span className="loader"></span>
-      </div>
-    ) : (
-      <div className='min-h-screen flex justify-center items-center py-10 px-4'>
-        <div className='flex flex-col md:flex-row w-full md:w-10/12 gap-8 bg-white p-6 rounded-lg shadow-sm'>
-
-          {/* الصور */}
-          <div className='w-full md:w-5/12'>
-            <img
-              className='w-full rounded-lg'
-              src={product?.imageCover}
-              id='myImage'
-              alt=""
-            />
-
-            <div className='flex gap-3 mt-4 overflow-x-auto'>
-              {product?.images.map((image, i) => (
-                <img
-                  key={i}
-                  src={image}
-                  onClick={changeImage}
-                  className='w-20 h-20 object-cover cursor-pointer border rounded-md hover:border-green-500'
-                  alt=""
-                />
-              ))}
+                </div>
+                <div className='w-full lg:w-8/12'>
+                    <h2 className='text-2xl font-semibold text-slate-800'>{product?.title}</h2>
+                    <p className='text-slate-500 mt-3 text-sm sm:text-base' >{product?.description}</p>
+                    <span className='block text-[16px] text-active mt-3'>{product?.category.name}</span>
+                    <span className='mt-2 block text-lg font-semibold'>{product?.price} EGP</span>
+                    <button onClick={() => addCart(id)} className='btn max-w-xs'><i className="fa-solid fa-plus text-white me-2"></i>add to cart</button>
+                </div>
             </div>
-          </div>
+        </div>}
 
-          {/* التفاصيل */}
-          <div className='w-full md:w-7/12 flex flex-col justify-center'>
-
-            <h2 className='text-2xl font-semibold'>
-              {product?.title}
-            </h2>
-
-            <p className='text-slate-500 mt-4 text-sm leading-relaxed'>
-              {product?.description}
-            </p>
-
-            <span className='mt-4 text-active font-medium'>
-              {product?.category.name}
-            </span>
-
-            <span className='mt-2 text-xl font-bold'>
-              {product?.price} EGP
-            </span>
-
-            <button
-              onClick={() => addCart(id)}
-              className='btn mt-6 w-full md:w-fit px-6 py-3'
-            >
-              <i className="fa-solid fa-plus text-white me-2"></i>
-              Add to Cart
-            </button>
-
-          </div>
-
-        </div>
-      </div>
-    )}
-  </>
+    </>
 }

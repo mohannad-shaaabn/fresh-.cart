@@ -5,54 +5,36 @@ import "slick-carousel/slick/slick-theme.css";
 import useApi from '../useApi/useApi';
 
 export default function CategorySlider() {
+    const { data } = useApi('categories');
+    const settings = {
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        infinite: true,
+        autoplay: true,
+        speed: 500,
+        arrows: false,
+        dots: false,
+        responsive: [
+            { breakpoint: 1280, settings: { slidesToShow: 4, slidesToScroll: 1 } },
+            { breakpoint: 1024, settings: { slidesToShow: 3, slidesToScroll: 1 } },
+            { breakpoint: 768, settings: { slidesToShow: 2, slidesToScroll: 1 } },
+            { breakpoint: 480, settings: { slidesToShow: 1, slidesToScroll: 1 } },
+        ],
+    };
 
-  let { data } = useApi('categories');
 
-  const settings = {
-    infinite: true,
-    speed: 500,
-    autoplay: true,
-    arrows: false,
-    slidesToShow: 6,
-    slidesToScroll: 2,
-    responsive: [
-      {
-        breakpoint: 1024, 
-        settings: {
-          slidesToShow: 4,
-        }
-      },
-      {
-        breakpoint: 768, 
-        settings: {
-          slidesToShow: 3,
-        }
-      },
-      {
-        breakpoint: 480, 
-        settings: {
-          slidesToShow: 2,
-        }
-      }
-    ]
-  };
-
-  return (
-    <div className="w-full my-6 px-3">
-      <Slider {...settings}>
-        {data?.data?.data?.map((category) => (
-          <div key={category._id} className="px-2 text-center">
-            <img
-              src={category.image}
-              alt={category.name}
-              className="h-32 md:h-40 w-full object-contain"
-            />
-            <h5 className="mt-2 text-sm md:text-base truncate">
-              {category.name}
-            </h5>
-          </div>
-        ))}
-      </Slider>
-    </div>
-  );
+    return (
+        <div className="my-5">
+            <Slider {...settings}>
+                {data?.data?.data?.map((category) => (
+                    <div key={category._id} className="px-2">
+                        <article className='overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm'>
+                            <img src={category.image} alt={category.name} className='w-full aspect-[4/3] object-cover object-top' />
+                            <h5 className='px-3 py-2 text-center text-sm font-medium text-slate-700'>{category.name}</h5>
+                        </article>
+                    </div>
+                ))}
+            </Slider>
+        </div>
+    );
 }

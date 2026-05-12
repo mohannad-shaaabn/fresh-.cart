@@ -1,127 +1,94 @@
-import React, { useContext, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import logoImg from "../../assets/images/freshcart-logo.svg";
-import { AuthContext } from "../../Context/AuthContextProvider";
-import { CartContext } from "../../Context/CartContextProvider";
+import React, { useContext, useState } from 'react'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
+import logoImg from '../../assets/images/freshcart-logo.svg'
+import { AuthContext } from '../../Context/AuthContextProvider'
+import { CartContext } from '../../Context/CartContextProvider'
 
 export default function Navbar() {
-  const { token, setToken } = useContext(AuthContext);
-  const { numsCartItem } = useContext(CartContext);
-  const nav = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
+  let { token, setToken } = useContext(AuthContext)
+  let { numsCartItem } = useContext(CartContext)
+  let nav = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   function logout() {
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
     setToken(null);
-    nav("/Login");
+    nav('/Login')
+    window.location.reload();
   }
 
-  function closeMenu() {
-    setIsOpen(false);
+  if (token === null && localStorage.getItem('token')) {
+    return null;
   }
 
   return (
-    <nav className="bg-white shadow fixed w-full top-0 z-50">
-      <div className="max-w-screen-xl mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+    <nav className="bg-white border-gray-200 shadow">
+      <div className="max-w-screen-xl flex flex-wrap md:flex-nowrap items-center mx-auto p-4">
+        <Link to="" className="flex items-center space-x-3 rtl:space-x-reverse">
+          <img src={logoImg} className="h-8" alt="" />
+        </Link>
 
-          {/* Logo */}
-          <Link to="/" className="flex items-center">
-            <img src={logoImg} className="h-8" alt="FreshCart Logo" />
-          </Link>
+        <button
+          type="button"
+          onClick={() => setIsMenuOpen((prev) => !prev)}
+          className="inline-flex items-center p-2 ms-auto w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+          aria-controls="navbar-default"
+          aria-expanded={isMenuOpen}
+        >
+          <span className="sr-only">Open main menu</span>
+          <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
+          </svg>
+        </button>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            {token && (
-              <ul className="flex space-x-6 font-medium">
-                <li><NavLink to="/Home">Home</NavLink></li>
-                <li><NavLink to="/Product">Products</NavLink></li>
-                <li><NavLink to="/brands">Brands</NavLink></li>
-                <li><NavLink to="/Category">Category</NavLink></li>
-              </ul>
-            )}
+        <div className={`${isMenuOpen ? 'block' : 'hidden'} w-full md:flex md:flex-1 md:items-center md:justify-between md:ms-6`} id="navbar-default">
+          {token && (
+            <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:items-center md:gap-1 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white">
+              <li><NavLink to="/Home" className="block py-2 px-3">Home</NavLink></li>
+              <li><NavLink to="/Product" className="block py-2 px-3">products</NavLink></li>
+              <li><NavLink to="/Cart" className="block py-2 px-3">Cart</NavLink></li>
+              <li><NavLink to="/brands" className="block py-2 px-3">brands</NavLink></li>
+              <li><NavLink to="/Category" className="block py-2 px-3">category</NavLink></li>
+            </ul>
+          )}
 
-            {/* Cart Desktop */}
-            <div
-              className="relative cursor-pointer"
-              onClick={() => (token ? nav("/Cart") : nav("/Login"))}
-            >
-              <i className="fa-solid fa-cart-shopping text-xl"></i>
+          <ul className="md:ms-auto font-medium flex flex-col md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:items-center md:gap-1 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white">
+            <li className='px-3 py-2 md:py-0'><i className="fa-brands fa-facebook"></i></li>
+            <li className='px-3 py-2 md:py-0'><i className="fa-brands fa-twitter"></i></li>
+            <li className='px-3 py-2 md:py-0'><i className="fa-brands fa-instagram"></i></li>
+            <li className='px-3 py-2 md:py-0'><i className="fa-brands fa-youtube"></i></li>
+
+            <li className="block py-2 px-3 relative cursor-pointer" onClick={() => {
+              if (token) {
+                nav('/Cart');
+              } else {
+                nav('/Login');
+              }
+            }}>
+              <i className="fa-solid fa-cart-shopping" />
               {token && (
-                <span className="absolute -top-2 -right-2 bg-green-500 text-white text-xs h-5 w-5 flex items-center justify-center rounded-full">
+                <span className='absolute top-0 end-0 bg-active h-[15.3px] w-[15.3px] rounded-[100%] text-center text-[11px] text-white'>
                   {numsCartItem}
                 </span>
               )}
-            </div>
+            </li>
 
-            {/* Auth */}
             {token ? (
-              <button onClick={logout}>Logout</button>
+              <li>
+                <Link onClick={logout} to="" className="block py-2 px-3">logout</Link>
+              </li>
             ) : (
               <>
-                <NavLink to="/Login">Login</NavLink>
-                <NavLink to="/regester">Register</NavLink>
+                <li>
+                  <NavLink to="/Login" className="block py-2 px-3">login</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/regester" className="block py-2 px-3">regester</NavLink>
+                </li>
               </>
             )}
-          </div>
-
-          {/* Mobile Right Side */}
-          <div className="flex items-center space-x-4 md:hidden">
-
-            {/* Cart Mobile */}
-            <div
-              className="relative cursor-pointer"
-              onClick={() => (token ? nav("/Cart") : nav("/Login"))}
-            >
-              <i className="fa-solid fa-cart-shopping text-xl"></i>
-              {token && (
-                <span className="absolute -top-2 -right-2 bg-green-500 text-white text-xs h-5 w-5 flex items-center justify-center rounded-full">
-                  {numsCartItem}
-                </span>
-              )}
-            </div>
-
-            {/* Menu Button */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-2xl"
-            >
-              ☰
-            </button>
-          </div>
+          </ul>
         </div>
-
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div className="md:hidden pb-4 border-t pt-4 space-y-3">
-
-            {token && (
-              <>
-                <NavLink onClick={closeMenu} to="/Home" className="block">Home</NavLink>
-                <NavLink onClick={closeMenu} to="/Product" className="block">Products</NavLink>
-                <NavLink onClick={closeMenu} to="/brands" className="block">Brands</NavLink>
-                <NavLink onClick={closeMenu} to="/Category" className="block">Category</NavLink>
-              </>
-            )}
-
-            {token ? (
-              <button
-                onClick={() => {
-                  logout();
-                  closeMenu();
-                }}
-                className="block"
-              >
-                Logout
-              </button>
-            ) : (
-              <>
-                <NavLink onClick={closeMenu} to="/Login" className="block">Login</NavLink>
-                <NavLink onClick={closeMenu} to="/regester" className="block">Register</NavLink>
-              </>
-            )}
-          </div>
-        )}
       </div>
     </nav>
   );

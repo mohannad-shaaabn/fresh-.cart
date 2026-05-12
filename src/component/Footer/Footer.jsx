@@ -18,7 +18,7 @@ export default function Footer() {
         <h1 className='font-medium '>Get the frechCart app.</h1>
         <h5 className='text-gray-500 text-sm'>We will send you a link, open it in your phone to download app.</h5>
       </div>
-      <div className=' flex justify-center items-center mx-auto w-10/12 pb-4 gap-2 border-b border-gray-400'>
+      <div className='flex flex-col sm:flex-row justify-center sm:items-center mx-auto w-11/12 lg:w-10/12 pb-4 gap-2 border-b border-gray-400'>
         <input
           value={emailFooter.values.email}
           onChange={emailFooter.handleChange}
@@ -29,21 +29,21 @@ export default function Footer() {
           placeholder="jon123@gmail.com"
           required
         />
-        {emailFooter.touched.email && emailFooter.errors.email ? <p className='text-red-800'>{emailFooter.errors.email}</p> : ""}
+        {emailFooter.touched.email && emailFooter.errors.email ? <p className='text-red-800 text-sm'>{emailFooter.errors.email}</p> : ""}
         <button className=' bg-active rounded p-2 text-white hover:bg-green-700 '>
           Share app Link
         </button>
 
       </div>
-      <div className='flex justify-between items-center mx-auto w-10/12 gap-2 mt-2  pb-4 gap-2 border-b border-gray-400'>
-        <div className='flex items-center gap-2 '>
-          <h2 className='sm:text-[8px] md:text-sm lg:text-base'>Payment Partnes</h2>
+      <div className='flex flex-col lg:flex-row justify-between lg:items-center mx-auto w-11/12 lg:w-10/12 mt-2 pb-4 gap-3 border-b border-gray-400'>
+        <div className='flex flex-wrap items-center gap-2 '>
+          <h2 className='text-xs sm:text-sm lg:text-base'>Payment Partnes</h2>
             <i className="fa-brands fa-amazon-pay" />
             <i className="fa-brands fa-cc-paypal" />
             <i className="fa-brands fa-cc-mastercard" />
         </div>
-        <div className='flex items-center gap-2'>
-          <h2 className='sm:text-[8px] md:text-sm lg:text-base'>Get deliveries with FrechCart</h2>
+        <div className='flex flex-wrap items-center gap-2'>
+          <h2 className='text-xs sm:text-sm lg:text-base'>Get deliveries with FrechCart</h2>
             <i className="fa-brands fa-app-store-ios text-3xl" />
             <i className="fa-brands fa-google-play text-3xl" />
         </div>
