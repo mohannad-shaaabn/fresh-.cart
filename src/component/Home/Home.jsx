@@ -39,7 +39,7 @@ export default function Home() {
   return (
     <>
       <Toaster />
-      {isLoading ? <div className='bg-slate-300 flex justify-center items-center h-screen'><span className="loader"></span></div> : <div className='w-11/12 lg:w-10/12 mx-auto my-6 space-y-6'>
+      {isLoading ? <div className='bg-slate-300 flex justify-center items-center h-screen'><span className="loader"></span></div> : <div className='animate-fade-in w-11/12 lg:w-10/12 mx-auto my-6 space-y-6'>
         <MainSlider />
         <CategorySlider />
         <div className='flex flex-wrap -mx-2'>
@@ -47,7 +47,7 @@ export default function Home() {
             let { _id, price, imageCover, category, title, ratingsAverage } = product
             let { name } = category
             return <div key={_id} className='2xl:w-1/6 lg:w-1/4 md:w-1/3 sm:w-1/2 w-full px-2 mb-4'>
-              <div className='item group h-full overflow-hidden rounded-2xl border border-slate-200 bg-white p-3 shadow-sm transition hover:-translate-y-1 hover:border-active'>
+              <div className='item group h-full overflow-hidden rounded-2xl border border-slate-200 bg-white p-3 shadow-sm transition hover:-translate-y-1 hover:border-active hover-float'>
                 <Link to={`/ProductDetails/${_id}`}>
                   <img src={imageCover} alt={title} className='w-full aspect-[4/5] rounded-xl object-cover object-center' />
                   <h5 className='mt-3 text-sm text-active'>{name}</h5>
@@ -57,7 +57,7 @@ export default function Home() {
                     <span><i className="fa-solid fa-star text-yellow-300 me-1" />{ratingsAverage}</span>
                   </div>
                 </Link>
-                <button onClick={() => addCart(_id)} className='btn mt-3 duration-500 sm:translate-y-24 sm:group-hover:translate-y-0'>Add to Cart</button>
+                <button onClick={() => addCart(_id)} className='btn mt-3 duration-500 hover-pulse sm:translate-y-24 sm:group-hover:translate-y-0'>Add to Cart</button>
               </div>
             </div>
           })}

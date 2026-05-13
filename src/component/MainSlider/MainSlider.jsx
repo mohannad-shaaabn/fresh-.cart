@@ -19,8 +19,8 @@ export default function MainSlider() {
 
 
     return (
-        <section className="grid grid-cols-1 gap-3 lg:grid-cols-12">
-            <div className="lg:col-span-9 overflow-hidden rounded-2xl">
+        <section className="animate-fade-up grid grid-cols-1 gap-3 lg:grid-cols-12">
+            <div className="lg:col-span-9 overflow-hidden rounded-2xl hover-float">
                 <Slider {...settings}>
                     <div>
                         <img src={img1} className="w-full aspect-[16/9] max-h-[520px] object-cover object-center" alt="Slide 1" />
@@ -34,10 +34,10 @@ export default function MainSlider() {
                 </Slider>
             </div>
             <div className="lg:col-span-3 grid grid-cols-2 gap-3 lg:grid-cols-1">
-                <div className="overflow-hidden rounded-2xl">
+                <div className="overflow-hidden rounded-2xl hover-float">
                     <img src={img3} className="w-full h-full min-h-40 sm:min-h-44 lg:min-h-52 object-cover object-center" alt="Promo 1" />
                 </div>
-                <div className="overflow-hidden rounded-2xl">
+                <div className="overflow-hidden rounded-2xl hover-float">
                     <img src={img1} className="w-full h-full min-h-40 sm:min-h-44 lg:min-h-52 object-cover object-center" alt="Promo 2" />
                 </div>
             </div>

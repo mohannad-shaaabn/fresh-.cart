@@ -42,8 +42,8 @@ export default function Login() {
   }
 
   return (
-    <section className='w-11/12 sm:w-10/12 lg:w-8/12 xl:w-7/12 mx-auto my-8'>
-      <div className='rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm'>
+    <section className='animate-fade-up w-11/12 sm:w-10/12 lg:w-8/12 xl:w-7/12 mx-auto my-8'>
+      <div className='rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm hover-float'>
         <h2 className='text-3xl font-semibold text-slate-800'>Welcome back</h2>
         <p className='mt-2 text-sm text-slate-500'>Login to manage your orders and continue shopping.</p>
 
@@ -68,7 +68,7 @@ export default function Login() {
             <Link to="/regester" className='text-sm text-slate-600'>No account? <span className='text-active font-medium'>Create one</span></Link>
           </div>
 
-          <button disabled={!(LoginFrom.isValid && LoginFrom.dirty)} type="submit" className="btn mt-1 disabled:cursor-not-allowed disabled:opacity-60">Login</button>
+          <button disabled={!(LoginFrom.isValid && LoginFrom.dirty)} type="submit" className="btn mt-1 hover-pulse disabled:cursor-not-allowed disabled:opacity-60">Login</button>
         </form>
       </div>
     </section>

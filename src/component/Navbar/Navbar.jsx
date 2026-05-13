@@ -17,7 +17,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-white border-gray-200 shadow">
+    <nav className="animate-fade-in bg-white border-gray-200 shadow">
       <div className="max-w-screen-xl flex flex-wrap md:flex-nowrap items-center mx-auto p-4">
         <Link to="" className="flex items-center space-x-3 rtl:space-x-reverse">
           <img src={logoImg} className="h-8" alt="" />
@@ -31,12 +31,18 @@ export default function Navbar() {
           aria-expanded={isMenuOpen}
         >
           <span className="sr-only">Open main menu</span>
-          <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
-          </svg>
+          {isMenuOpen ? (
+            <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 6l12 12M18 6L6 18" />
+            </svg>
+          ) : (
+            <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
+            </svg>
+          )}
         </button>
 
-        <div className={`${isMenuOpen ? 'block' : 'hidden'} w-full md:flex md:flex-1 md:items-center md:justify-between md:ms-6`} id="navbar-default">
+        <div className={`${isMenuOpen ? 'max-h-[600px] opacity-100 mt-3' : 'max-h-0 opacity-0 mt-0'} overflow-hidden transition-all duration-300 ease-in-out w-full md:max-h-none md:opacity-100 md:overflow-visible md:flex md:flex-1 md:items-center md:justify-between md:ms-6 md:mt-0`} id="navbar-default">
           {isAuthenticated && (
             <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:items-center md:gap-1 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white">
               <li><NavLink to="/Home" className="block py-2 px-3">Home</NavLink></li>
@@ -62,7 +68,7 @@ export default function Navbar() {
             }}>
               <i className="fa-solid fa-cart-shopping" />
               {isAuthenticated && (
-                <span className='absolute top-0 end-0 bg-active h-[15.3px] w-[15.3px] rounded-[100%] text-center text-[11px] text-white'>
+                <span className='absolute top-0 end-0 bg-active h-[15.3px] w-[15.3px] rounded-[100%] text-center text-[11px] text-white animate-fade-in'>
                   {numsCartItem}
                 </span>
               )}
